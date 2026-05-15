@@ -91,22 +91,31 @@ CUSTOM_CSS = """
         padding: 18px;
         box-shadow: 0 8px 20px rgba(15,23,42,0.04);
         height: 100%;
+        color: #111827 !important;
     }
     .rule-card h3 {
-        color: #111827;
+        color: #111827 !important;
         font-size: 1.05rem;
         margin-bottom: 8px;
     }
+    .rule-card p, .rule-card b, .rule-card strong {
+        color: #111827 !important;
+    }
     .formula {
         background: #eff6ff;
-        color: #1e3a8a;
+        color: #1e3a8a !important;
         border: 1px solid #bfdbfe;
         border-radius: 999px;
         padding: 4px 10px;
         font-weight: 800;
         display: inline-block;
         margin: 4px 0;
+        white-space: normal;
     }
+    .stMarkdown, .stText, .stCaption {
+        color: inherit;
+    }
+    
     .exercise-card {
         background: #ffffff;
         border: 1px solid #e5e7eb;
