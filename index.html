@@ -1,1 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>German A1 Sentence Practice</title>
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --good: #15803d;
+      --bad: #b91c1c;
+      --soft-blue: #eff6ff;
+      --soft-green: #ecfdf5;
+      --soft-red: #fef2f2;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
 
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    header {
+      padding: 42px 18px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    header p {
+      max-width: 920px;
+      margin: 16px auto 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 5px;
+      background: linear-gradient(90deg, #2563eb, #22c55e, #f59e0b);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.65rem;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin: 18px 0 8px;
+      font-size: 1.15rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+
+    .tip-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .tip-card strong { color: #111827; }
+
+    .formula {
+      display: inline-block;
+      background: var(--soft-blue);
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: 700;
+      margin: 3px 4px 3px 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      position: sticky;
+      top: 0;
+      background: rgba(247,247,251,0.92);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      padding: 12px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #e5e7eb;
+      color: #111827;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button.primary { background: var(--primary); color: #fff; }
+    button.primary:hover { background: var(--primary-dark); }
+    button.good { background: #dcfce7; color: #166534; }
+    button.bad { background: #fee2e2; color: #991b1b; }
+    button.small { padding: 7px 11px; font-size: 0.85rem; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-top: 4px;
+    }
+
+    .exercise {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    .exercise-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .exercise-number {
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .tag {
+      background: #f3f4f6;
+      color: #4b5563;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .translation {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .word-bank, .answer-box {
+      min-height: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px dashed #cbd5e1;
+      background: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .answer-box {
+      background: #ffffff;
+      border-style: solid;
+    }
+
+    .word {
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      color: #1e1b4b;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .word.used {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .chosen {
+      background: #dbeafe;
+      border-color: #93c5fd;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .feedback {
+      font-weight: 800;
+      margin-left: auto;
+    }
+
+    .feedback.ok { color: var(--good); }
+    .feedback.no { color: var(--bad); }
+
+    .hidden-answer {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      background: var(--soft-green);
+      border: 1px solid #bbf7d0;
+      color: #14532d;
+      font-weight: 700;
+    }
+
+    .writing-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .writing-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+    }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .notice {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #78350f;
+      padding: 14px;
+      border-radius: 18px;
+      margin-top: 14px;
+    }
+
+    .progressbar {
+      width: 100%;
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0 18px;
+    }
+
+    .progressbar > div {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #22c55e);
+      transition: width 0.25s ease;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .search-row input, .search-row select {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      background: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 18px 60px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 680px) {
+      .exercise-head { flex-direction: column; }
+      .feedback { margin-left: 0; width: 100%; }
+      .panel { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:#ffffff;border:1px solid #e5e7eb;border-radius:999px;padding:8px 14px;margin-bottom:18px;box-shadow:0 8px 20px rgba(15,23,42,0.06);font-weight:800;color:#1e40af;">
+      <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+      German A1 Interactive Workbook
+    </div>
+    <h1>German A1 Sentence Builder</h1>
+    <p>Practice word order, articles, verbs, questions, negation, modal verbs, time expressions, daily life, shopping, work, travel, and simple writing. Click the words in the correct order. Use the hidden answer only after trying.</p>
+    <div style="max-width:980px;margin:26px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:16px;box-shadow:0 10px 24px rgba(15,23,42,0.06);"><strong style="font-size:1.4rem;display:block;">300</strong><span style="color:#6b7280;">German word-order drills</span></div>
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:16px;box-shadow:0 10px 24px rgba(15,23,42,0.06);"><strong style="font-size:1.4rem;display:block;">300</strong><span style="color:#6b7280;">English-to-German writing drills</span></div>
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:16px;box-shadow:0 10px 24px rgba(15,23,42,0.06);"><strong style="font-size:1.4rem;display:block;">500</strong><span style="color:#6b7280;">der, die, das article drills</span></div>
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:16px;box-shadow:0 10px 24px rgba(15,23,42,0.06);"><strong style="font-size:1.4rem;display:block;">A1</strong><span style="color:#6b7280;">simple, exam-friendly German</span></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Before You Start: A1 Tricks That Actually Help</h2>
+
+      <div class="grid">
+        <div class="tip-card">
+          <h3>1. Basic German word order</h3>
+          <p><span class="formula">Position 1 + Verb + Subject + Rest</span></p>
+          <p><strong>Ich wohne in Berlin.</strong><br>Verb is usually in position 2.</p>
+          <p><strong>Heute wohne ich in Berlin.</strong><br>If time comes first, the verb still stays second.</p>
+        </div>
+
+        <div class="tip-card">
+          <h3>2. Yes/No questions</h3>
+          <p><span class="formula">Verb + Subject + Rest?</span></p>
+          <p><strong>Kommst du aus Indien?</strong><br>For yes/no questions, start with the verb.</p>
+        </div>
+
+        <div class="tip-card">
+          <h3>3. W-questions</h3>
+          <p><span class="formula">Question word + Verb + Subject + Rest?</span></p>
+          <p><strong>Wo wohnst du?</strong><br><strong>Was machst du heute?</strong></p>
+        </div>
+
+        <div class="tip-card">
+          <h3>4. Modal verbs</h3>
+          <p><span class="formula">Modal verb second + main verb at end</span></p>
+          <p><strong>Ich möchte Kaffee trinken.</strong><br><strong>Wir können Deutsch lernen.</strong></p>
+        </div>
+
+        <div class="tip-card">
+          <h3>5. Negation</h3>
+          <p><strong>nicht</strong> negates verbs/adjectives: <strong>Ich komme nicht.</strong></p>
+          <p><strong>kein/keine</strong> negates nouns with ein/eine: <strong>Ich habe keinen Hund.</strong></p>
+        </div>
+
+        <div class="tip-card">
+          <h3>6. Time before place</h3>
+          <p><span class="formula">Time + Manner + Place</span></p>
+          <p><strong>Ich gehe heute mit Ali in die Schule.</strong></p>
+          <p>At A1, remember: <strong>wann</strong> usually comes before <strong>wohin/wo</strong>.</p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:24px;">Der, Die, Das: Practical Tricks</h2>
+      <div class="grid">
+        <div class="tip-card">
+          <h3>Usually der</h3>
+          <p><strong>Male people/jobs:</strong> der Mann, der Lehrer</p>
+          <p><strong>Days/months/seasons:</strong> der Montag, der Januar, der Sommer</p>
+          <p><strong>Many -er endings:</strong> der Computer, der Drucker</p>
+        </div>
+        <div class="tip-card">
+          <h3>Usually die</h3>
+          <p><strong>Female people/jobs:</strong> die Frau, die Lehrerin</p>
+          <p><strong>All plurals:</strong> die Kinder, die Bücher</p>
+          <p><strong>-ung, -heit, -keit, -schaft, -tion:</strong> die Wohnung, die Freiheit, die Information</p>
+        </div>
+        <div class="tip-card">
+          <h3>Usually das</h3>
+          <p><strong>-chen and -lein:</strong> das Mädchen, das Brötchen</p>
+          <p><strong>Many infinitive nouns:</strong> das Essen, das Lernen</p>
+          <p><strong>Many young beings:</strong> das Kind, das Baby</p>
+        </div>
+      </div>
+
+      <div class="notice">
+        <strong>Important:</strong> These are tricks, not perfect rules. For A1, always learn nouns with the article: <strong>der Tisch</strong>, <strong>die Lampe</strong>, <strong>das Buch</strong>. Never learn only “Tisch”.
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="tabs">
+        <button class="primary" onclick="showSection('jumble')">200 Jumbled German Sentences</button>
+        <button onclick="showSection('writing')">200 English to German Sentences</button>
+        <button onclick="showSection('article')">Article Mini-Drill</button>
+        <button onclick="resetAll()">Reset All Progress</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Total questions</span><strong id="totalCount">1100</strong></div>
+        <div class="stat"><span>Correct</span><strong id="correctCount">0</strong></div>
+        <div class="stat"><span>Tried</span><strong id="triedCount">0</strong></div>
+        <div class="stat"><span>Accuracy</span><strong id="accuracyCount">0%</strong></div>
+      </div>
+      <div class="progressbar"><div id="progressFill"></div></div>
+
+      <div class="search-row">
+        <input id="searchInput" placeholder="Search topic: family, food, question..." oninput="renderCurrentSection()" />
+        <select id="topicFilter" onchange="renderCurrentSection()">
+          <option value="all">All topics</option>
+        </select>
+      </div>
+
+      <div id="jumble" class="section active">
+        <h2>Part 1: Click the German Words in Correct Order</h2>
+        <p class="translation">Goal: Train German word order. Click words one by one. Then check.</p>
+        <div id="jumbleContainer"></div>
+      </div>
+
+      <div id="writing" class="section">
+        <h2>Part 2: Translate English into German</h2>
+        <p class="translation">Goal: Write the German sentence yourself. Then check or show the answer.</p>
+        <div id="writingContainer"></div>
+      </div>
+
+      <div id="article" class="section">
+        <h2>Article Mini-Drill: der, die, das</h2>
+        <p class="translation">Type the correct article. This is extra practice before sentence building.</p>
+        <div id="articleContainer"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Use this like a workbook. Do not show the answer first. Try, check, correct yourself, repeat.
+  </footer>
+
+  <script>
+    const jumbleSentences = [
+      {de:"Ich heiße Pradum.", en:"My name is Pradum.", topic:"introduction"},
+      {de:"Ich komme aus Indien.", en:"I come from India.", topic:"introduction"},
+      {de:"Ich wohne in Berlin.", en:"I live in Berlin.", topic:"introduction"},
+      {de:"Ich bin Student.", en:"I am a student.", topic:"introduction"},
+      {de:"Ich lerne Deutsch.", en:"I am learning German.", topic:"learning"},
+      {de:"Du sprichst gut Englisch.", en:"You speak English well.", topic:"language"},
+      {de:"Wir lernen heute Deutsch.", en:"We are learning German today.", topic:"learning"},
+      {de:"Er arbeitet in Berlin.", en:"He works in Berlin.", topic:"work"},
+      {de:"Sie kommt aus Spanien.", en:"She comes from Spain.", topic:"introduction"},
+      {de:"Das ist mein Freund.", en:"That is my friend.", topic:"people"},
+      {de:"Meine Mutter wohnt in Indien.", en:"My mother lives in India.", topic:"family"},
+      {de:"Mein Vater arbeitet viel.", en:"My father works a lot.", topic:"family"},
+      {de:"Meine Schwester studiert Medizin.", en:"My sister studies medicine.", topic:"family"},
+      {de:"Mein Bruder spielt Fußball.", en:"My brother plays football.", topic:"family"},
+      {de:"Ich habe eine Familie.", en:"I have a family.", topic:"family"},
+      {de:"Wir haben zwei Kinder.", en:"We have two children.", topic:"family"},
+      {de:"Das Kind ist klein.", en:"The child is small.", topic:"family"},
+      {de:"Die Eltern sind zu Hause.", en:"The parents are at home.", topic:"family"},
+      {de:"Meine Oma kocht gern.", en:"My grandma likes cooking.", topic:"family"},
+      {de:"Mein Opa trinkt Tee.", en:"My grandpa drinks tea.", topic:"family"},
+      {de:"Ich trinke Wasser.", en:"I drink water.", topic:"food"},
+      {de:"Du isst Brot.", en:"You eat bread.", topic:"food"},
+      {de:"Er trinkt Kaffee.", en:"He drinks coffee.", topic:"food"},
+      {de:"Sie isst einen Apfel.", en:"She eats an apple.", topic:"food"},
+      {de:"Wir essen heute Pizza.", en:"We are eating pizza today.", topic:"food"},
+      {de:"Ich möchte einen Tee.", en:"I would like a tea.", topic:"food"},
+      {de:"Ich nehme ein Wasser.", en:"I will take a water.", topic:"food"},
+      {de:"Der Kaffee ist heiß.", en:"The coffee is hot.", topic:"food"},
+      {de:"Die Suppe ist kalt.", en:"The soup is cold.", topic:"food"},
+      {de:"Das Essen schmeckt gut.", en:"The food tastes good.", topic:"food"},
+      {de:"Ich gehe zur Schule.", en:"I go to school.", topic:"school"},
+      {de:"Du machst die Hausaufgaben.", en:"You do the homework.", topic:"school"},
+      {de:"Er liest ein Buch.", en:"He reads a book.", topic:"school"},
+      {de:"Sie schreibt einen Satz.", en:"She writes a sentence.", topic:"school"},
+      {de:"Wir haben morgen Unterricht.", en:"We have class tomorrow.", topic:"school"},
+      {de:"Der Lehrer erklärt die Grammatik.", en:"The teacher explains the grammar.", topic:"school"},
+      {de:"Die Schülerin fragt den Lehrer.", en:"The schoolgirl asks the teacher.", topic:"school"},
+      {de:"Das Buch liegt auf dem Tisch.", en:"The book is lying on the table.", topic:"school"},
+      {de:"Ich verstehe die Frage.", en:"I understand the question.", topic:"school"},
+      {de:"Wir üben jeden Tag.", en:"We practice every day.", topic:"learning"},
+      {de:"Ich arbeite im Büro.", en:"I work in the office.", topic:"work"},
+      {de:"Du hast heute frei.", en:"You are free today.", topic:"work"},
+      {de:"Er schreibt eine E-Mail.", en:"He writes an email.", topic:"work"},
+      {de:"Sie hat einen Termin.", en:"She has an appointment.", topic:"work"},
+      {de:"Wir beginnen um neun Uhr.", en:"We start at nine o'clock.", topic:"work"},
+      {de:"Ich mache eine Pause.", en:"I take a break.", topic:"work"},
+      {de:"Der Chef ist freundlich.", en:"The boss is friendly.", topic:"work"},
+      {de:"Die Kollegin kommt später.", en:"The colleague comes later.", topic:"work"},
+      {de:"Das Meeting dauert eine Stunde.", en:"The meeting lasts one hour.", topic:"work"},
+      {de:"Ich fahre mit dem Bus.", en:"I travel by bus.", topic:"travel"},
+      {de:"Du nimmst die Bahn.", en:"You take the train.", topic:"travel"},
+      {de:"Er fährt nach München.", en:"He travels to Munich.", topic:"travel"},
+      {de:"Sie geht zum Bahnhof.", en:"She goes to the train station.", topic:"travel"},
+      {de:"Wir reisen am Samstag.", en:"We travel on Saturday.", topic:"travel"},
+      {de:"Der Zug kommt pünktlich.", en:"The train arrives on time.", topic:"travel"},
+      {de:"Der Bus ist spät.", en:"The bus is late.", topic:"travel"},
+      {de:"Ich kaufe ein Ticket.", en:"I buy a ticket.", topic:"travel"},
+      {de:"Die Haltestelle ist hier.", en:"The stop is here.", topic:"travel"},
+      {de:"Das Auto ist neu.", en:"The car is new.", topic:"travel"},
+      {de:"Ich stehe um sieben Uhr auf.", en:"I get up at seven o'clock.", topic:"daily routine"},
+      {de:"Du duschst am Morgen.", en:"You shower in the morning.", topic:"daily routine"},
+      {de:"Er frühstückt um acht Uhr.", en:"He has breakfast at eight o'clock.", topic:"daily routine"},
+      {de:"Sie geht zur Arbeit.", en:"She goes to work.", topic:"daily routine"},
+      {de:"Wir essen am Abend.", en:"We eat in the evening.", topic:"daily routine"},
+      {de:"Ich schlafe um elf Uhr.", en:"I sleep at eleven o'clock.", topic:"daily routine"},
+      {de:"Heute bin ich müde.", en:"Today I am tired.", topic:"daily routine"},
+      {de:"Morgen habe ich Zeit.", en:"Tomorrow I have time.", topic:"daily routine"},
+      {de:"Am Wochenende treffe ich Freunde.", en:"At the weekend I meet friends.", topic:"daily routine"},
+      {de:"Jeden Tag lerne ich Deutsch.", en:"Every day I learn German.", topic:"learning"},
+      {de:"Ich kaufe Milch.", en:"I buy milk.", topic:"shopping"},
+      {de:"Du bezahlst mit Karte.", en:"You pay by card.", topic:"shopping"},
+      {de:"Er sucht eine Jacke.", en:"He is looking for a jacket.", topic:"shopping"},
+      {de:"Sie braucht neue Schuhe.", en:"She needs new shoes.", topic:"shopping"},
+      {de:"Wir gehen in den Supermarkt.", en:"We go to the supermarket.", topic:"shopping"},
+      {de:"Der Preis ist gut.", en:"The price is good.", topic:"shopping"},
+      {de:"Die Tasche kostet zehn Euro.", en:"The bag costs ten euros.", topic:"shopping"},
+      {de:"Das Hemd ist blau.", en:"The shirt is blue.", topic:"shopping"},
+      {de:"Ich möchte diese Hose.", en:"I would like these trousers.", topic:"shopping"},
+      {de:"Haben Sie Brot?", en:"Do you have bread?", topic:"shopping"},
+      {de:"Ich bin krank.", en:"I am sick.", topic:"health"},
+      {de:"Du hast Fieber.", en:"You have a fever.", topic:"health"},
+      {de:"Er geht zum Arzt.", en:"He goes to the doctor.", topic:"health"},
+      {de:"Sie braucht Medizin.", en:"She needs medicine.", topic:"health"},
+      {de:"Wir trinken viel Wasser.", en:"We drink a lot of water.", topic:"health"},
+      {de:"Mein Kopf tut weh.", en:"My head hurts.", topic:"health"},
+      {de:"Der Arzt ist nett.", en:"The doctor is nice.", topic:"health"},
+      {de:"Die Apotheke ist geschlossen.", en:"The pharmacy is closed.", topic:"health"},
+      {de:"Das Rezept liegt hier.", en:"The prescription is here.", topic:"health"},
+      {de:"Ich brauche einen Termin.", en:"I need an appointment.", topic:"health"},
+      {de:"Ich spiele gern Fußball.", en:"I like playing football.", topic:"hobbies"},
+      {de:"Du hörst gern Musik.", en:"You like listening to music.", topic:"hobbies"},
+      {de:"Er liest gern Bücher.", en:"He likes reading books.", topic:"hobbies"},
+      {de:"Sie tanzt am Abend.", en:"She dances in the evening.", topic:"hobbies"},
+      {de:"Wir kochen zusammen.", en:"We cook together.", topic:"hobbies"},
+      {de:"Ich sehe einen Film.", en:"I watch a film.", topic:"hobbies"},
+      {de:"Das Hobby macht Spaß.", en:"The hobby is fun.", topic:"hobbies"},
+      {de:"Am Sonntag spiele ich Tennis.", en:"On Sunday I play tennis.", topic:"hobbies"},
+      {de:"Nach der Arbeit höre ich Musik.", en:"After work I listen to music.", topic:"hobbies"},
+      {de:"Meine Freunde kommen heute.", en:"My friends are coming today.", topic:"people"},
+      {de:"Ich wohne in einer Wohnung.", en:"I live in an apartment.", topic:"home"},
+      {de:"Du hast ein Zimmer.", en:"You have a room.", topic:"home"},
+      {de:"Er öffnet das Fenster.", en:"He opens the window.", topic:"home"},
+      {de:"Sie schließt die Tür.", en:"She closes the door.", topic:"home"},
+      {de:"Wir sitzen im Wohnzimmer.", en:"We are sitting in the living room.", topic:"home"},
+      {de:"Die Küche ist klein.", en:"The kitchen is small.", topic:"home"},
+      {de:"Das Bad ist sauber.", en:"The bathroom is clean.", topic:"home"},
+      {de:"Der Tisch steht im Zimmer.", en:"The table is in the room.", topic:"home"},
+      {de:"Ich putze heute die Wohnung.", en:"I clean the apartment today.", topic:"home"},
+      {de:"Meine Lampe ist kaputt.", en:"My lamp is broken.", topic:"home"},
+      {de:"Wie heißt du?", en:"What is your name?", topic:"question"},
+      {de:"Wo wohnst du?", en:"Where do you live?", topic:"question"},
+      {de:"Woher kommst du?", en:"Where do you come from?", topic:"question"},
+      {de:"Was machst du heute?", en:"What are you doing today?", topic:"question"},
+      {de:"Wann kommst du nach Hause?", en:"When are you coming home?", topic:"question"},
+      {de:"Warum lernst du Deutsch?", en:"Why are you learning German?", topic:"question"},
+      {de:"Wie viel kostet das?", en:"How much does that cost?", topic:"question"},
+      {de:"Hast du heute Zeit?", en:"Do you have time today?", topic:"question"},
+      {de:"Kommst du morgen?", en:"Are you coming tomorrow?", topic:"question"},
+      {de:"Sprichst du Englisch?", en:"Do you speak English?", topic:"question"},
+      {de:"Ich komme nicht aus Deutschland.", en:"I do not come from Germany.", topic:"negation"},
+      {de:"Du hast keine Zeit.", en:"You have no time.", topic:"negation"},
+      {de:"Er trinkt keinen Kaffee.", en:"He drinks no coffee.", topic:"negation"},
+      {de:"Sie isst kein Fleisch.", en:"She eats no meat.", topic:"negation"},
+      {de:"Wir gehen heute nicht ins Kino.", en:"We are not going to the cinema today.", topic:"negation"},
+      {de:"Das ist nicht teuer.", en:"That is not expensive.", topic:"negation"},
+      {de:"Ich habe keinen Hund.", en:"I do not have a dog.", topic:"negation"},
+      {de:"Meine Schwester hat kein Auto.", en:"My sister has no car.", topic:"negation"},
+      {de:"Der Laden ist nicht offen.", en:"The shop is not open.", topic:"negation"},
+      {de:"Ich verstehe den Satz nicht.", en:"I do not understand the sentence.", topic:"negation"},
+      {de:"Ich möchte Deutsch lernen.", en:"I would like to learn German.", topic:"modal verbs"},
+      {de:"Du kannst gut kochen.", en:"You can cook well.", topic:"modal verbs"},
+      {de:"Er muss heute arbeiten.", en:"He must work today.", topic:"modal verbs"},
+      {de:"Sie kann morgen kommen.", en:"She can come tomorrow.", topic:"modal verbs"},
+      {de:"Wir wollen ins Kino gehen.", en:"We want to go to the cinema.", topic:"modal verbs"},
+      {de:"Ich darf hier parken.", en:"I may park here.", topic:"modal verbs"},
+      {de:"Du sollst mehr Wasser trinken.", en:"You should drink more water.", topic:"modal verbs"},
+      {de:"Er möchte einen Kaffee bestellen.", en:"He would like to order a coffee.", topic:"modal verbs"},
+      {de:"Wir können zusammen lernen.", en:"We can learn together.", topic:"modal verbs"},
+      {de:"Ich muss zum Arzt gehen.", en:"I must go to the doctor.", topic:"modal verbs"},
+      {de:"Heute regnet es.", en:"It is raining today.", topic:"weather"},
+      {de:"Morgen scheint die Sonne.", en:"The sun shines tomorrow.", topic:"weather"},
+      {de:"Es ist sehr kalt.", en:"It is very cold.", topic:"weather"},
+      {de:"Der Himmel ist blau.", en:"The sky is blue.", topic:"weather"},
+      {de:"Im Sommer ist es warm.", en:"In summer it is warm.", topic:"weather"},
+      {de:"Im Winter schneit es oft.", en:"In winter it often snows.", topic:"weather"},
+      {de:"Ich brauche eine Jacke.", en:"I need a jacket.", topic:"weather"},
+      {de:"Das Wetter ist schön.", en:"The weather is nice.", topic:"weather"},
+      {de:"Heute ist es windig.", en:"Today it is windy.", topic:"weather"},
+      {de:"Wir gehen bei Sonne spazieren.", en:"We go walking when it is sunny.", topic:"weather"},
+      {de:"Ich habe einen Hund.", en:"I have a dog.", topic:"animals"},
+      {de:"Du hast eine Katze.", en:"You have a cat.", topic:"animals"},
+      {de:"Der Hund schläft im Garten.", en:"The dog sleeps in the garden.", topic:"animals"},
+      {de:"Die Katze sitzt auf dem Sofa.", en:"The cat sits on the sofa.", topic:"animals"},
+      {de:"Das Pferd ist groß.", en:"The horse is big.", topic:"animals"},
+      {de:"Wir sehen einen Vogel.", en:"We see a bird.", topic:"animals"},
+      {de:"Der Fisch schwimmt im Wasser.", en:"The fish swims in the water.", topic:"animals"},
+      {de:"Meine Katze frisst gern Fisch.", en:"My cat likes eating fish.", topic:"animals"},
+      {de:"Ich mag Tiere.", en:"I like animals.", topic:"animals"},
+      {de:"Der Vogel singt am Morgen.", en:"The bird sings in the morning.", topic:"animals"},
+      {de:"Ich bin glücklich.", en:"I am happy.", topic:"feelings"},
+      {de:"Du bist traurig.", en:"You are sad.", topic:"feelings"},
+      {de:"Er ist nervös.", en:"He is nervous.", topic:"feelings"},
+      {de:"Sie ist sehr müde.", en:"She is very tired.", topic:"feelings"},
+      {de:"Wir sind heute zufrieden.", en:"We are satisfied today.", topic:"feelings"},
+      {de:"Ich habe Hunger.", en:"I am hungry.", topic:"feelings"},
+      {de:"Du hast Durst.", en:"You are thirsty.", topic:"feelings"},
+      {de:"Das macht mich froh.", en:"That makes me glad.", topic:"feelings"},
+      {de:"Ich fühle mich gut.", en:"I feel good.", topic:"feelings"},
+      {de:"Warum bist du müde?", en:"Why are you tired?", topic:"feelings"},
+      {de:"Der Tisch ist braun.", en:"The table is brown.", topic:"colors"},
+      {de:"Die Blume ist rot.", en:"The flower is red.", topic:"colors"},
+      {de:"Das Auto ist schwarz.", en:"The car is black.", topic:"colors"},
+      {de:"Meine Tasche ist blau.", en:"My bag is blue.", topic:"colors"},
+      {de:"Sein Hemd ist weiß.", en:"His shirt is white.", topic:"colors"},
+      {de:"Ihre Schuhe sind grün.", en:"Her shoes are green.", topic:"colors"},
+      {de:"Ich kaufe eine gelbe Jacke.", en:"I buy a yellow jacket.", topic:"colors"},
+      {de:"Der Stift ist rot.", en:"The pen is red.", topic:"colors"},
+      {de:"Die Wand ist grau.", en:"The wall is grey.", topic:"colors"},
+      {de:"Das Kleid ist schön.", en:"The dress is beautiful.", topic:"colors"},
+      {de:"Ich habe heute einen Termin.", en:"I have an appointment today.", topic:"time"},
+      {de:"Du kommst um acht Uhr.", en:"You come at eight o'clock.", topic:"time"},
+      {de:"Er geht am Montag arbeiten.", en:"He goes to work on Monday.", topic:"time"},
+      {de:"Sie lernt am Abend Deutsch.", en:"She learns German in the evening.", topic:"time"},
+      {de:"Wir treffen uns um fünf Uhr.", en:"We meet at five o'clock.", topic:"time"},
+      {de:"Der Kurs beginnt im Mai.", en:"The course begins in May.", topic:"time"},
+      {de:"Die Pause dauert zehn Minuten.", en:"The break lasts ten minutes.", topic:"time"},
+      {de:"Heute ist Freitag.", en:"Today is Friday.", topic:"time"},
+      {de:"Morgen ist Samstag.", en:"Tomorrow is Saturday.", topic:"time"},
+      {de:"Gestern war ich zu Hause.", en:"Yesterday I was at home.", topic:"time"},
+      {de:"Ich bin im Restaurant.", en:"I am in the restaurant.", topic:"restaurant"},
+      {de:"Du bestellst eine Suppe.", en:"You order a soup.", topic:"restaurant"},
+      {de:"Er nimmt einen Salat.", en:"He takes a salad.", topic:"restaurant"},
+      {de:"Sie bezahlt die Rechnung.", en:"She pays the bill.", topic:"restaurant"},
+      {de:"Wir möchten einen Tisch.", en:"We would like a table.", topic:"restaurant"},
+      {de:"Der Kellner bringt das Wasser.", en:"The waiter brings the water.", topic:"restaurant"},
+      {de:"Die Karte liegt auf dem Tisch.", en:"The menu is on the table.", topic:"restaurant"},
+      {de:"Das Essen ist lecker.", en:"The food is delicious.", topic:"restaurant"},
+      {de:"Ich hätte gern die Rechnung.", en:"I would like the bill.", topic:"restaurant"},
+      {de:"Kann ich bitte bezahlen?", en:"Can I pay, please?", topic:"restaurant"},
+      {de:"Ich rufe meine Mutter an.", en:"I call my mother.", topic:"communication"},
+      {de:"Du schreibst eine Nachricht.", en:"You write a message.", topic:"communication"},
+      {de:"Er sendet eine E-Mail.", en:"He sends an email.", topic:"communication"},
+      {de:"Sie liest die Nachricht.", en:"She reads the message.", topic:"communication"},
+      {de:"Wir sprechen am Telefon.", en:"We speak on the phone.", topic:"communication"},
+      {de:"Ich verstehe dich gut.", en:"I understand you well.", topic:"communication"},
+      {de:"Kannst du das wiederholen?", en:"Can you repeat that?", topic:"communication"},
+      {de:"Bitte sprechen Sie langsam.", en:"Please speak slowly.", topic:"communication"},
+      {de:"Ich habe eine Frage.", en:"I have a question.", topic:"communication"},
+      {de:"Danke für deine Hilfe.", en:"Thank you for your help.", topic:"communication"}
+    ];
+
+    const writingSentences = [
+      {en:"My name is Anna.", de:"Ich heiße Anna.", topic:"introduction"},
+      {en:"I am twenty years old.", de:"Ich bin zwanzig Jahre alt.", topic:"introduction"},
+      {en:"I come from India.", de:"Ich komme aus Indien.", topic:"introduction"},
+      {en:"I live in Germany.", de:"Ich wohne in Deutschland.", topic:"introduction"},
+      {en:"I speak English and Hindi.", de:"Ich spreche Englisch und Hindi.", topic:"language"},
+      {en:"I learn German every day.", de:"Ich lerne jeden Tag Deutsch.", topic:"learning"},
+      {en:"My German is not perfect.", de:"Mein Deutsch ist nicht perfekt.", topic:"language"},
+      {en:"I have a question.", de:"Ich habe eine Frage.", topic:"communication"},
+      {en:"Can you help me?", de:"Kannst du mir helfen?", topic:"communication"},
+      {en:"Please speak slowly.", de:"Bitte sprechen Sie langsam.", topic:"communication"},
+      {en:"This is my mother.", de:"Das ist meine Mutter.", topic:"family"},
+      {en:"My father works in an office.", de:"Mein Vater arbeitet in einem Büro.", topic:"family"},
+      {en:"My sister studies German.", de:"Meine Schwester studiert Deutsch.", topic:"family"},
+      {en:"My brother plays football.", de:"Mein Bruder spielt Fußball.", topic:"family"},
+      {en:"My parents live in India.", de:"Meine Eltern wohnen in Indien.", topic:"family"},
+      {en:"I have no children.", de:"Ich habe keine Kinder.", topic:"family"},
+      {en:"The child is small.", de:"Das Kind ist klein.", topic:"family"},
+      {en:"The family is big.", de:"Die Familie ist groß.", topic:"family"},
+      {en:"My grandma cooks well.", de:"Meine Oma kocht gut.", topic:"family"},
+      {en:"My grandpa drinks tea.", de:"Mein Opa trinkt Tee.", topic:"family"},
+      {en:"I drink water.", de:"Ich trinke Wasser.", topic:"food"},
+      {en:"I eat bread.", de:"Ich esse Brot.", topic:"food"},
+      {en:"I would like a coffee.", de:"Ich möchte einen Kaffee.", topic:"food"},
+      {en:"I would like a tea.", de:"Ich möchte einen Tee.", topic:"food"},
+      {en:"The soup is hot.", de:"Die Suppe ist heiß.", topic:"food"},
+      {en:"The pizza tastes good.", de:"Die Pizza schmeckt gut.", topic:"food"},
+      {en:"I do not eat meat.", de:"Ich esse kein Fleisch.", topic:"food"},
+      {en:"I buy milk.", de:"Ich kaufe Milch.", topic:"food"},
+      {en:"We eat together.", de:"Wir essen zusammen.", topic:"food"},
+      {en:"Are you hungry?", de:"Hast du Hunger?", topic:"food"},
+      {en:"I go to school.", de:"Ich gehe zur Schule.", topic:"school"},
+      {en:"I read a book.", de:"Ich lese ein Buch.", topic:"school"},
+      {en:"I write a sentence.", de:"Ich schreibe einen Satz.", topic:"school"},
+      {en:"The teacher explains the word.", de:"Der Lehrer erklärt das Wort.", topic:"school"},
+      {en:"The lesson starts at nine.", de:"Der Unterricht beginnt um neun Uhr.", topic:"school"},
+      {en:"I understand the exercise.", de:"Ich verstehe die Übung.", topic:"school"},
+      {en:"I do my homework.", de:"Ich mache meine Hausaufgaben.", topic:"school"},
+      {en:"The book is on the table.", de:"Das Buch liegt auf dem Tisch.", topic:"school"},
+      {en:"The question is easy.", de:"Die Frage ist einfach.", topic:"school"},
+      {en:"We practice German.", de:"Wir üben Deutsch.", topic:"learning"},
+      {en:"I work today.", de:"Ich arbeite heute.", topic:"work"},
+      {en:"I work in Berlin.", de:"Ich arbeite in Berlin.", topic:"work"},
+      {en:"I have a meeting.", de:"Ich habe ein Meeting.", topic:"work"},
+      {en:"The appointment is tomorrow.", de:"Der Termin ist morgen.", topic:"work"},
+      {en:"My colleague is friendly.", de:"Meine Kollegin ist freundlich.", topic:"work"},
+      {en:"I write an email.", de:"Ich schreibe eine E-Mail.", topic:"work"},
+      {en:"We start at eight o'clock.", de:"Wir beginnen um acht Uhr.", topic:"work"},
+      {en:"I take a break.", de:"Ich mache eine Pause.", topic:"work"},
+      {en:"The office is big.", de:"Das Büro ist groß.", topic:"work"},
+      {en:"I have free time today.", de:"Ich habe heute frei.", topic:"work"},
+      {en:"I travel by bus.", de:"Ich fahre mit dem Bus.", topic:"travel"},
+      {en:"I take the train.", de:"Ich nehme die Bahn.", topic:"travel"},
+      {en:"The train is late.", de:"Der Zug ist spät.", topic:"travel"},
+      {en:"The bus comes now.", de:"Der Bus kommt jetzt.", topic:"travel"},
+      {en:"I buy a ticket.", de:"Ich kaufe ein Ticket.", topic:"travel"},
+      {en:"The train station is here.", de:"Der Bahnhof ist hier.", topic:"travel"},
+      {en:"I go to Munich.", de:"Ich fahre nach München.", topic:"travel"},
+      {en:"We travel on Saturday.", de:"Wir reisen am Samstag.", topic:"travel"},
+      {en:"Where is the bus stop?", de:"Wo ist die Haltestelle?", topic:"travel"},
+      {en:"The car is new.", de:"Das Auto ist neu.", topic:"travel"},
+      {en:"I get up at seven.", de:"Ich stehe um sieben Uhr auf.", topic:"daily routine"},
+      {en:"I shower in the morning.", de:"Ich dusche am Morgen.", topic:"daily routine"},
+      {en:"I have breakfast at eight.", de:"Ich frühstücke um acht Uhr.", topic:"daily routine"},
+      {en:"I go to work.", de:"Ich gehe zur Arbeit.", topic:"daily routine"},
+      {en:"I eat in the evening.", de:"Ich esse am Abend.", topic:"daily routine"},
+      {en:"I sleep at eleven.", de:"Ich schlafe um elf Uhr.", topic:"daily routine"},
+      {en:"Today I am tired.", de:"Heute bin ich müde.", topic:"daily routine"},
+      {en:"Tomorrow I have time.", de:"Morgen habe ich Zeit.", topic:"daily routine"},
+      {en:"On the weekend I meet friends.", de:"Am Wochenende treffe ich Freunde.", topic:"daily routine"},
+      {en:"I go home now.", de:"Ich gehe jetzt nach Hause.", topic:"daily routine"},
+      {en:"I go to the supermarket.", de:"Ich gehe in den Supermarkt.", topic:"shopping"},
+      {en:"I pay by card.", de:"Ich bezahle mit Karte.", topic:"shopping"},
+      {en:"I need new shoes.", de:"Ich brauche neue Schuhe.", topic:"shopping"},
+      {en:"The jacket is expensive.", de:"Die Jacke ist teuer.", topic:"shopping"},
+      {en:"The price is good.", de:"Der Preis ist gut.", topic:"shopping"},
+      {en:"How much does this cost?", de:"Wie viel kostet das?", topic:"shopping"},
+      {en:"I would like this bag.", de:"Ich möchte diese Tasche.", topic:"shopping"},
+      {en:"Do you have bread?", de:"Haben Sie Brot?", topic:"shopping"},
+      {en:"The shop is open.", de:"Der Laden ist offen.", topic:"shopping"},
+      {en:"I am looking for a shirt.", de:"Ich suche ein Hemd.", topic:"shopping"},
+      {en:"I am sick.", de:"Ich bin krank.", topic:"health"},
+      {en:"I have a fever.", de:"Ich habe Fieber.", topic:"health"},
+      {en:"My head hurts.", de:"Mein Kopf tut weh.", topic:"health"},
+      {en:"I go to the doctor.", de:"Ich gehe zum Arzt.", topic:"health"},
+      {en:"I need medicine.", de:"Ich brauche Medizin.", topic:"health"},
+      {en:"The pharmacy is closed.", de:"Die Apotheke ist geschlossen.", topic:"health"},
+      {en:"I drink a lot of water.", de:"Ich trinke viel Wasser.", topic:"health"},
+      {en:"The doctor is nice.", de:"Der Arzt ist nett.", topic:"health"},
+      {en:"I need an appointment.", de:"Ich brauche einen Termin.", topic:"health"},
+      {en:"Are you okay?", de:"Geht es dir gut?", topic:"health"},
+      {en:"I like playing football.", de:"Ich spiele gern Fußball.", topic:"hobbies"},
+      {en:"I like listening to music.", de:"Ich höre gern Musik.", topic:"hobbies"},
+      {en:"I read books.", de:"Ich lese Bücher.", topic:"hobbies"},
+      {en:"I watch a film.", de:"Ich sehe einen Film.", topic:"hobbies"},
+      {en:"We cook together.", de:"Wir kochen zusammen.", topic:"hobbies"},
+      {en:"I dance in the evening.", de:"Ich tanze am Abend.", topic:"hobbies"},
+      {en:"On Sunday I play tennis.", de:"Am Sonntag spiele ich Tennis.", topic:"hobbies"},
+      {en:"After work I listen to music.", de:"Nach der Arbeit höre ich Musik.", topic:"hobbies"},
+      {en:"My hobby is cooking.", de:"Mein Hobby ist Kochen.", topic:"hobbies"},
+      {en:"This is fun.", de:"Das macht Spaß.", topic:"hobbies"},
+      {en:"I live in an apartment.", de:"Ich wohne in einer Wohnung.", topic:"home"},
+      {en:"The room is small.", de:"Das Zimmer ist klein.", topic:"home"},
+      {en:"The kitchen is clean.", de:"Die Küche ist sauber.", topic:"home"},
+      {en:"I open the window.", de:"Ich öffne das Fenster.", topic:"home"},
+      {en:"I close the door.", de:"Ich schließe die Tür.", topic:"home"},
+      {en:"The table is in the room.", de:"Der Tisch steht im Zimmer.", topic:"home"},
+      {en:"The lamp is broken.", de:"Die Lampe ist kaputt.", topic:"home"},
+      {en:"I clean the apartment today.", de:"Ich putze heute die Wohnung.", topic:"home"},
+      {en:"The bathroom is big.", de:"Das Bad ist groß.", topic:"home"},
+      {en:"We sit in the living room.", de:"Wir sitzen im Wohnzimmer.", topic:"home"},
+      {en:"What is your name?", de:"Wie heißt du?", topic:"question"},
+      {en:"Where do you live?", de:"Wo wohnst du?", topic:"question"},
+      {en:"Where do you come from?", de:"Woher kommst du?", topic:"question"},
+      {en:"What are you doing today?", de:"Was machst du heute?", topic:"question"},
+      {en:"When are you coming?", de:"Wann kommst du?", topic:"question"},
+      {en:"Why are you learning German?", de:"Warum lernst du Deutsch?", topic:"question"},
+      {en:"Do you speak English?", de:"Sprichst du Englisch?", topic:"question"},
+      {en:"Do you have time today?", de:"Hast du heute Zeit?", topic:"question"},
+      {en:"Can you repeat that?", de:"Kannst du das wiederholen?", topic:"question"},
+      {en:"Where is the toilet?", de:"Wo ist die Toilette?", topic:"question"},
+      {en:"I do not come today.", de:"Ich komme heute nicht.", topic:"negation"},
+      {en:"I have no time.", de:"Ich habe keine Zeit.", topic:"negation"},
+      {en:"I drink no coffee.", de:"Ich trinke keinen Kaffee.", topic:"negation"},
+      {en:"I eat no meat.", de:"Ich esse kein Fleisch.", topic:"negation"},
+      {en:"That is not expensive.", de:"Das ist nicht teuer.", topic:"negation"},
+      {en:"The shop is not open.", de:"Der Laden ist nicht offen.", topic:"negation"},
+      {en:"I do not understand the sentence.", de:"Ich verstehe den Satz nicht.", topic:"negation"},
+      {en:"My sister has no car.", de:"Meine Schwester hat kein Auto.", topic:"negation"},
+      {en:"I do not go to the cinema today.", de:"Ich gehe heute nicht ins Kino.", topic:"negation"},
+      {en:"I have no dog.", de:"Ich habe keinen Hund.", topic:"negation"},
+      {en:"I would like to learn German.", de:"Ich möchte Deutsch lernen.", topic:"modal verbs"},
+      {en:"I can cook well.", de:"Ich kann gut kochen.", topic:"modal verbs"},
+      {en:"I must work today.", de:"Ich muss heute arbeiten.", topic:"modal verbs"},
+      {en:"I can come tomorrow.", de:"Ich kann morgen kommen.", topic:"modal verbs"},
+      {en:"We want to go to the cinema.", de:"Wir wollen ins Kino gehen.", topic:"modal verbs"},
+      {en:"I may park here.", de:"Ich darf hier parken.", topic:"modal verbs"},
+      {en:"You should drink more water.", de:"Du sollst mehr Wasser trinken.", topic:"modal verbs"},
+      {en:"I would like to order a coffee.", de:"Ich möchte einen Kaffee bestellen.", topic:"modal verbs"},
+      {en:"We can learn together.", de:"Wir können zusammen lernen.", topic:"modal verbs"},
+      {en:"I must go to the doctor.", de:"Ich muss zum Arzt gehen.", topic:"modal verbs"},
+      {en:"It is raining today.", de:"Heute regnet es.", topic:"weather"},
+      {en:"The sun is shining.", de:"Die Sonne scheint.", topic:"weather"},
+      {en:"It is cold.", de:"Es ist kalt.", topic:"weather"},
+      {en:"It is warm in summer.", de:"Im Sommer ist es warm.", topic:"weather"},
+      {en:"It often snows in winter.", de:"Im Winter schneit es oft.", topic:"weather"},
+      {en:"I need a jacket.", de:"Ich brauche eine Jacke.", topic:"weather"},
+      {en:"The weather is nice.", de:"Das Wetter ist schön.", topic:"weather"},
+      {en:"Today it is windy.", de:"Heute ist es windig.", topic:"weather"},
+      {en:"The sky is blue.", de:"Der Himmel ist blau.", topic:"weather"},
+      {en:"We go for a walk.", de:"Wir gehen spazieren.", topic:"weather"},
+      {en:"I have a dog.", de:"Ich habe einen Hund.", topic:"animals"},
+      {en:"I have a cat.", de:"Ich habe eine Katze.", topic:"animals"},
+      {en:"The dog sleeps in the garden.", de:"Der Hund schläft im Garten.", topic:"animals"},
+      {en:"The cat sits on the sofa.", de:"Die Katze sitzt auf dem Sofa.", topic:"animals"},
+      {en:"The horse is big.", de:"Das Pferd ist groß.", topic:"animals"},
+      {en:"I see a bird.", de:"Ich sehe einen Vogel.", topic:"animals"},
+      {en:"The fish swims in the water.", de:"Der Fisch schwimmt im Wasser.", topic:"animals"},
+      {en:"I like animals.", de:"Ich mag Tiere.", topic:"animals"},
+      {en:"My cat eats fish.", de:"Meine Katze frisst Fisch.", topic:"animals"},
+      {en:"The bird sings in the morning.", de:"Der Vogel singt am Morgen.", topic:"animals"},
+      {en:"I am happy.", de:"Ich bin glücklich.", topic:"feelings"},
+      {en:"I am sad.", de:"Ich bin traurig.", topic:"feelings"},
+      {en:"I am nervous.", de:"Ich bin nervös.", topic:"feelings"},
+      {en:"I am tired today.", de:"Ich bin heute müde.", topic:"feelings"},
+      {en:"I am hungry.", de:"Ich habe Hunger.", topic:"feelings"},
+      {en:"I am thirsty.", de:"Ich habe Durst.", topic:"feelings"},
+      {en:"I feel good.", de:"Ich fühle mich gut.", topic:"feelings"},
+      {en:"Why are you tired?", de:"Warum bist du müde?", topic:"feelings"},
+      {en:"We are satisfied today.", de:"Wir sind heute zufrieden.", topic:"feelings"},
+      {en:"That makes me happy.", de:"Das macht mich glücklich.", topic:"feelings"},
+      {en:"The table is brown.", de:"Der Tisch ist braun.", topic:"colors"},
+      {en:"The flower is red.", de:"Die Blume ist rot.", topic:"colors"},
+      {en:"The car is black.", de:"Das Auto ist schwarz.", topic:"colors"},
+      {en:"My bag is blue.", de:"Meine Tasche ist blau.", topic:"colors"},
+      {en:"His shirt is white.", de:"Sein Hemd ist weiß.", topic:"colors"},
+      {en:"Her shoes are green.", de:"Ihre Schuhe sind grün.", topic:"colors"},
+      {en:"I buy a yellow jacket.", de:"Ich kaufe eine gelbe Jacke.", topic:"colors"},
+      {en:"The pen is red.", de:"Der Stift ist rot.", topic:"colors"},
+      {en:"The wall is grey.", de:"Die Wand ist grau.", topic:"colors"},
+      {en:"The dress is beautiful.", de:"Das Kleid ist schön.", topic:"colors"},
+      {en:"I have an appointment today.", de:"Ich habe heute einen Termin.", topic:"time"},
+      {en:"I come at eight o'clock.", de:"Ich komme um acht Uhr.", topic:"time"},
+      {en:"He works on Monday.", de:"Er arbeitet am Montag.", topic:"time"},
+      {en:"She learns German in the evening.", de:"Sie lernt am Abend Deutsch.", topic:"time"},
+      {en:"We meet at five o'clock.", de:"Wir treffen uns um fünf Uhr.", topic:"time"},
+      {en:"The course starts in May.", de:"Der Kurs beginnt im Mai.", topic:"time"},
+      {en:"The break lasts ten minutes.", de:"Die Pause dauert zehn Minuten.", topic:"time"},
+      {en:"Today is Friday.", de:"Heute ist Freitag.", topic:"time"},
+      {en:"Tomorrow is Saturday.", de:"Morgen ist Samstag.", topic:"time"},
+      {en:"Yesterday I was at home.", de:"Gestern war ich zu Hause.", topic:"time"},
+      {en:"I am in the restaurant.", de:"Ich bin im Restaurant.", topic:"restaurant"},
+      {en:"I order a soup.", de:"Ich bestelle eine Suppe.", topic:"restaurant"},
+      {en:"I take a salad.", de:"Ich nehme einen Salat.", topic:"restaurant"},
+      {en:"I pay the bill.", de:"Ich bezahle die Rechnung.", topic:"restaurant"},
+      {en:"We would like a table.", de:"Wir möchten einen Tisch.", topic:"restaurant"},
+      {en:"The waiter brings the water.", de:"Der Kellner bringt das Wasser.", topic:"restaurant"},
+      {en:"The menu is on the table.", de:"Die Karte liegt auf dem Tisch.", topic:"restaurant"},
+      {en:"The food is delicious.", de:"Das Essen ist lecker.", topic:"restaurant"},
+      {en:"I would like the bill.", de:"Ich hätte gern die Rechnung.", topic:"restaurant"},
+      {en:"Can I pay, please?", de:"Kann ich bitte bezahlen?", topic:"restaurant"},
+      {en:"I call my mother.", de:"Ich rufe meine Mutter an.", topic:"communication"},
+      {en:"I write a message.", de:"Ich schreibe eine Nachricht.", topic:"communication"},
+      {en:"I send an email.", de:"Ich sende eine E-Mail.", topic:"communication"},
+      {en:"I read the message.", de:"Ich lese die Nachricht.", topic:"communication"},
+      {en:"We speak on the phone.", de:"Wir sprechen am Telefon.", topic:"communication"},
+      {en:"I understand you well.", de:"Ich verstehe dich gut.", topic:"communication"},
+      {en:"Please repeat the sentence.", de:"Bitte wiederholen Sie den Satz.", topic:"communication"},
+      {en:"Thank you for your help.", de:"Danke für deine Hilfe.", topic:"communication"},
+      {en:"I do not know.", de:"Ich weiß nicht.", topic:"communication"},
+      {en:"See you tomorrow.", de:"Bis morgen.", topic:"communication"}
+    ];
+
+    const articleDrill = [
+      ["Mann", "der"], ["Frau", "die"], ["Kind", "das"], ["Tisch", "der"], ["Lampe", "die"], ["Buch", "das"],
+      ["Wohnung", "die"], ["Computer", "der"], ["Auto", "das"], ["Schule", "die"], ["Lehrer", "der"], ["Lehrerin", "die"],
+      ["Mädchen", "das"], ["Brötchen", "das"], ["Montag", "der"], ["Sommer", "der"], ["Information", "die"], ["Freiheit", "die"],
+      ["Essen", "das"], ["Arbeit", "die"], ["Hund", "der"], ["Katze", "die"], ["Pferd", "das"], ["Bahnhof", "der"]
+    ].map(([noun, article]) => ({ noun, article, topic: "article" }));
+
+    const extraArticlePairs = [
+      ["Abend","der"],["Adresse","die"],["Alter","das"],["Apfel","der"],["Apotheke","die"],["Arzt","der"],["Ärztin","die"],["Aufgabe","die"],["Auge","das"],["Ausgang","der"],
+      ["Baby","das"],["Bäckerei","die"],["Bad","das"],["Banane","die"],["Bank","die"],["Bett","das"],["Bier","das"],["Bild","das"],["Birne","die"],["Bleistift","der"],
+      ["Blume","die"],["Bus","der"],["Café","das"],["Chef","der"],["Chefin","die"],["Deutsch","das"],["Dorf","das"],["Drucker","der"],["Dusche","die"],["Ei","das"],
+      ["E-Mail","die"],["Ende","das"],["Entschuldigung","die"],["Erklärung","die"],["Familie","die"],["Fahrrad","das"],["Fahrer","der"],["Fahrerin","die"],["Fenster","das"],["Fernseher","der"],
+      ["Film","der"],["Firma","die"],["Fisch","der"],["Flasche","die"],["Flughafen","der"],["Foto","das"],["Frage","die"],["Frühstück","das"],["Fuß","der"],["Garten","der"],
+      ["Geburtstag","der"],["Geld","das"],["Gemüse","das"],["Geschäft","das"],["Geschenk","das"],["Getränk","das"],["Glas","das"],["Grammatik","die"],["Gruppe","die"],["Haar","das"],
+      ["Hand","die"],["Handy","das"],["Haus","das"],["Hausaufgabe","die"],["Heft","das"],["Hemd","das"],["Hilfe","die"],["Hobby","das"],["Hotel","das"],["Hunger","der"],
+      ["Jacke","die"],["Jahr","das"],["Kaffee","der"],["Karte","die"],["Käse","der"],["Kasse","die"],["Kellner","der"],["Kellnerin","die"],["Kino","das"],["Kleid","das"],
+      ["Koffer","der"],["Kollege","der"],["Kollegin","die"],["Kopf","der"],["Krankheit","die"],["Küche","die"],["Kuchen","der"],["Kurs","der"],["Laden","der"],["Land","das"],
+      ["Leben","das"],["Leute","die"],["Lied","das"],["Markt","der"],["Maschine","die"],["Meer","das"],["Minute","die"],["Mittag","der"],["Morgen","der"],["Musik","die"],
+      ["Nachbar","der"],["Nachbarin","die"],["Nachricht","die"],["Name","der"],["Nase","die"],["Nacht","die"],["Nummer","die"],["Obst","das"],["Ohr","das"],["Orange","die"],
+      ["Papier","das"],["Park","der"],["Pause","die"],["Plan","der"],["Platz","der"],["Polizei","die"],["Problem","das"],["Rechnung","die"],["Regen","der"],["Reise","die"],
+      ["Restaurant","das"],["Rezept","das"],["Saft","der"],["Salat","der"],["Salz","das"],["Satz","der"],["Schlüssel","der"],["Schnee","der"],["Schrank","der"],["Schuh","der"],
+      ["Schwester","die"],["Sohn","der"],["Sonne","die"],["Spiel","das"],["Sprache","die"],["Stadt","die"],["Stift","der"],["Straße","die"],["Student","der"],["Studentin","die"],
+      ["Stunde","die"],["Supermarkt","der"],["Tasche","die"],["Taxi","das"],["Tee","der"],["Teil","der"],["Telefon","das"],["Termin","der"],["Ticket","das"],["Tochter","die"],
+      ["Toilette","die"],["Tomate","die"],["Tür","die"],["Uhr","die"],["Universität","die"],["Vater","der"],["Verkäufer","der"],["Verkäuferin","die"],["Vogel","der"],["Wand","die"],
+      ["Wasser","das"],["Weg","der"],["Wetter","das"],["Woche","die"],["Wochenende","das"],["Wort","das"],["Zeit","die"],["Zeitung","die"],["Zug","der"],["Zimmer","das"],
+      ["Zucker","der"],["Zwiebel","die"],["Anmeldung","die"],["Ankunft","die"],["Anruf","der"],["Anzug","der"],["Apartment","das"],["App","die"],["Arm","der"],["Artikel","der"],
+      ["Aufzug","der"],["Ausweis","der"],["Bahn","die"],["Balkon","der"],["Bauch","der"],["Beispiel","das"],["Beruf","der"],["Besuch","der"],["Bibliothek","die"],["Brief","der"],
+      ["Brille","die"],["Bruder","der"],["Büro","das"],["Butter","die"],["Cent","der"],["Chance","die"],["Datum","das"],["Dialog","der"],["Ding","das"],["Durst","der"],
+      ["Einladung","die"],["Eintritt","der"],["Eltern","die"],["Ergebnis","das"],["Fahrkarte","die"],["Farbe","die"],["Fehler","der"],["Feier","die"],["Fleisch","das"],["Flug","der"],
+      ["Formular","das"],["Freund","der"],["Freundin","die"],["Führerschein","der"],["Gabel","die"],["Garage","die"],["Gebäude","das"],["Gebühr","die"],["Gegenteil","das"],["Gepäck","das"],
+      ["Gerät","das"],["Geschichte","die"],["Gespräch","das"],["Gesundheit","die"],["Gewicht","das"],["Haltestelle","die"],["Hauptbahnhof","der"],["Haut","die"],["Heizung","die"],["Hose","die"],
+      ["Idee","die"],["Insel","die"],["Internet","das"],["Januar","der"],["Juli","der"],["Junge","der"],["Kamera","die"],["Kartoffel","die"],["Kaufhaus","das"],["Keller","der"],
+      ["Kilometer","der"],["Klasse","die"],["Klavier","das"],["Kneipe","die"],["Konto","das"],["Körper","der"],["Krankenhaus","das"],["Kugelschreiber","der"],["Kultur","die"],["Kunde","der"],
+      ["Kundin","die"],["Lage","die"],["Leitung","die"],["Licht","das"],["Liste","die"],["Lösung","die"],["Luft","die"],["Mahlzeit","die"],["Mai","der"],["Mannschaft","die"],
+      ["Mantel","der"],["Medikament","das"],["Messer","das"],["Miete","die"],["Milch","die"],["Moment","der"],["Monat","der"],["Museum","das"],["Mutter","die"],["Nudeln","die"],
+      ["Öl","das"],["Onkel","der"],["Opa","der"],["Oma","die"],["Ordnung","die"],["Paket","das"],["Pass","der"],["Pfeffer","der"],["Pizza","die"],["Post","die"],
+      ["Prüfung","die"],["Radio","das"],["Rathaus","das"],["Raum","der"],["Regal","das"],["Reis","der"],["Rezeption","die"],["Rücken","der"],["Sache","die"],["Schalter","der"],
+      ["Schiff","das"],["Schokolade","die"],["Schwimmbad","das"],["See","der"],["Seife","die"],["Sekunde","die"],["Sessel","der"],["Sicherheit","die"],["Situation","die"],["Sofa","das"],
+      ["Sport","der"],["Station","die"],["Stock","der"],["Straßenbahn","die"],["Stuhl","der"],["Team","das"],["Theater","das"],["Thema","das"],["Tipp","der"],["Treppe","die"],
+      ["Übung","die"],["U-Bahn","die"],["Urlaub","der"],["Verbindung","die"],["Verein","der"],["Versicherung","die"],["Vertrag","der"],["Video","das"],["Vormittag","der"],["Wagen","der"],
+      ["Wäsche","die"],["Wein","der"],["Werkstatt","die"],["Wohnzimmer","das"],["Zahl","die"],["Zentrum","das"],["Ziel","das"],["Zitrone","die"],["Zugticket","das"],["Zukunft","die"],
+      ["Ahnung","die"],["Anfang","der"],["Angst","die"],["April","der"],["August","der"],["Ausbildung","die"],["Ausflug","der"],["Auskunft","die"],["Badezimmer","das"],["Berg","der"],
+      ["Bestellung","die"],["Bewerbung","die"],["Blatt","das"],["Blut","das"],["Brot","das"],["Bundesland","das"],["Dezember","der"],["Donnerstag","der"],["Erdbeere","die"],["Februar","der"],
+      ["Feiertag","der"],["Flur","der"],["Freitag","der"],["Fundbüro","das"],["Fußball","der"],["Geldautomat","der"],["Gericht","das"],["Größe","die"],["Gutschein","der"],["Handschuh","der"],
+      ["Hauptstadt","die"],["Herbst","der"],["Himmel","der"],["Hochschule","die"],["Jahreszeit","die"],["Joghurt","der"],["Kalender","der"],["Kauf","der"],["Kilo","das"],["Kiosk","der"],
+      ["Konzert","das"],["Krawatte","die"],["Kreditkarte","die"],["Kreis","der"],["Kühlschrank","der"],["Löffel","der"],["Lokal","das"],["Lust","die"],["März","der"],["Maus","die"],
+      ["Metzgerei","die"],["Mikrowelle","die"],["Mittwoch","der"],["Möbel","die"],["Nachmittag","der"],["Norden","der"],["November","der"],["Oktober","der"],["Panne","die"],["Parkschein","der"],
+      ["Pullover","der"],["Quittung","die"],["Regenjacke","die"],["Reiseführer","der"],["Reparatur","die"],["Reservierung","die"],["Samstag","der"],["Schlafzimmer","das"],["Sonntag","der"],["Süden","der"],
+      ["Telefonnummer","die"],["Temperatur","die"],["Toast","der"],["Training","das"],["Traube","die"],["Umgebung","die"],["Unterricht","der"],["Vase","die"],["Verspätung","die"],["Viertel","das"],
+      ["Visum","das"],["Vorname","der"],["Wald","der"],["Wecker","der"],["Winter","der"],["Wurst","die"],["Zahnarzt","der"],["Zahnärztin","die"],["Zeugnis","das"],["Zugang","der"],
+      ["Zusammenfassung","die"],["Abfahrt","die"],["Akku","der"],["Angebot","das"],["Anleitung","die"],["Arbeitsplatz","der"],["Aufenthalt","der"],["Bahnsteig","der"],["Bein","das"],["Bereich","der"],
+      ["Bescheinigung","die"],["Betrag","der"],["Briefmarke","die"],["Brücke","die"],["Bürste","die"],["Dame","die"],["Dauer","die"],["Decke","die"],["Display","das"],["Dose","die"],
+      ["Ecke","die"],["Eingang","der"],["Einkauf","der"],["Eis","das"],["Empfehlung","die"],["Erfahrung","die"],["Fabrik","die"],["Fach","das"],["Fähigkeit","die"],["Fahrt","die"],
+      ["Fahrradweg","der"],["Fernbedienung","die"],["Fieber","das"],["Fitnessstudio","das"],["Flugzeug","das"],["Frisör","der"],["Frisörin","die"],["Frühling","der"],["Fund","der"],["Gast","der"],
+      ["Gehalt","das"],["Gitarre","die"],["Grenze","die"],["Handtuch","das"],["Hochzeit","die"],["Hut","der"],["Inhalt","der"],["Interesse","das"],["Kamm","der"],["Kapitel","das"],
+      ["Kassenbon","der"],["Kennwort","das"],["Kirche","die"],["Kleidung","die"],["Kopfhörer","der"],["Krankenversicherung","die"],["Kreuzung","die"],["Kursbuch","das"],["Ladekabel","das"],["Laptop","der"],
+      ["Lebensmittel","die"],["Lernkarte","die"],["Lieblingsfarbe","die"],["Linie","die"],["Magen","der"],["Meldung","die"],["Messe","die"],["Nachname","der"],["Notiz","die"],["Notizbuch","das"],
+      ["Öffnungszeit","die"],["Ort","der"],["Pflanze","die"],["Portemonnaie","das"],["Programm","das"],["Prospekt","der"],["Punkt","der"],["Rad","das"],["Regel","die"],["Reinigung","die"],
+      ["Richtung","die"],["Rolltreppe","die"],["Rucksack","der"],["Schere","die"],["Schild","das"],["Schlange","die"],["Schnitzel","das"],["Schüssel","die"],["Service","der"],["Sitzplatz","der"],
+      ["Socke","die"],["Sonnenbrille","die"],["Spaziergang","der"],["Steckdose","die"],["Steuer","die"],["Stockwerk","das"],["Störung","die"],["Strand","der"],["Studentenwohnheim","das"],["Tablet","das"],
+      ["Teller","der"],["Text","der"],["Tourist","der"],["Touristin","die"],["Tüte","die"],["Übernachtung","die"],["Unfall","der"],["Unterschied","der"],["Verabredung","die"],["Verkehr","der"],
+      ["Vorschlag","der"],["Vorstellung","die"],["Wartezimmer","das"],["Waschmaschine","die"],["Wasserflasche","die"],["Website","die"],["Welt","die"],["Wörterbuch","das"],["Zeile","die"],["Zettel","der"]
+    ];
+    extraArticlePairs.forEach(([noun, article]) => articleDrill.push({ noun, article, topic: "article" }));
+    articleDrill.length = 500;
+
+    const extraJumbleBase = [
+      ["Ich brauche heute Hilfe.","I need help today.","communication"],["Kannst du bitte langsam sprechen?","Can you please speak slowly?","communication"],["Ich lerne neue Wörter.","I am learning new words.","learning"],["Der Satz ist sehr einfach.","The sentence is very easy.","learning"],["Wir wiederholen die Grammatik.","We repeat the grammar.","learning"],
+      ["Ich wohne seit Januar hier.","I have lived here since January.","home"],["Die Wohnung hat zwei Zimmer.","The apartment has two rooms.","home"],["Mein Zimmer ist sehr hell.","My room is very bright.","home"],["Die Küche ist neben dem Bad.","The kitchen is next to the bathroom.","home"],["Ich räume mein Zimmer auf.","I tidy up my room.","home"],
+      ["Ich fahre morgen nach Potsdam.","I am travelling to Potsdam tomorrow.","travel"],["Der Zug fährt um zehn Uhr.","The train leaves at ten o'clock.","travel"],["Ich warte am Bahnhof.","I wait at the train station.","travel"],["Wir steigen in den Bus ein.","We get on the bus.","travel"],["Wo kann ich ein Ticket kaufen?","Where can I buy a ticket?","travel"],
+      ["Ich kaufe heute Gemüse.","I am buying vegetables today.","shopping"],["Die Tomaten sind sehr frisch.","The tomatoes are very fresh.","shopping"],["Ich brauche noch Brot.","I still need bread.","shopping"],["Der Supermarkt schließt um acht.","The supermarket closes at eight.","shopping"],["Ich bezahle lieber bar.","I prefer to pay cash.","shopping"],
+      ["Ich bestelle eine Pizza.","I order a pizza.","restaurant"],["Die Rechnung kommt sofort.","The bill comes immediately.","restaurant"],["Wir reservieren einen Tisch.","We reserve a table.","restaurant"],["Das Wasser ist ohne Gas.","The water is still.","restaurant"],["Ich esse gern Suppe.","I like eating soup.","restaurant"],
+      ["Meine Mutter ruft mich an.","My mother calls me.","family"],["Mein Bruder besucht mich morgen.","My brother visits me tomorrow.","family"],["Die Kinder spielen im Garten.","The children play in the garden.","family"],["Meine Eltern kommen am Sonntag.","My parents come on Sunday.","family"],["Wir feiern zusammen Geburtstag.","We celebrate birthday together.","family"],
+      ["Ich habe heute Kopfschmerzen.","I have a headache today.","health"],["Der Arzt gibt mir Medizin.","The doctor gives me medicine.","health"],["Ich muss viel schlafen.","I must sleep a lot.","health"],["Die Apotheke öffnet um neun.","The pharmacy opens at nine.","health"],["Mir geht es besser.","I feel better.","health"],
+      ["Ich arbeite von neun bis fünf.","I work from nine to five.","work"],["Die Kollegin erklärt das Problem.","The colleague explains the problem.","work"],["Wir haben heute ein Meeting.","We have a meeting today.","work"],["Ich schreibe den Bericht.","I write the report.","work"],["Der Computer funktioniert nicht.","The computer does not work.","work"],
+      ["Am Montag lerne ich Deutsch.","On Monday I learn German.","time"],["Im Mai beginnt mein Kurs.","My course begins in May.","time"],["Die Stunde dauert fünfundvierzig Minuten.","The lesson lasts forty-five minutes.","time"],["Heute Abend habe ich Zeit.","This evening I have time.","time"],["Morgen früh gehe ich laufen.","Tomorrow morning I go running.","time"],
+      ["Es ist heute sehr warm.","It is very warm today.","weather"],["Im Herbst regnet es oft.","In autumn it often rains.","weather"],["Der Wind ist stark.","The wind is strong.","weather"],["Ich nehme einen Regenschirm mit.","I take an umbrella with me.","weather"],["Bei schönem Wetter gehen wir raus.","In nice weather we go outside.","weather"]
+    ];
+    for (let i = 0; i < 2; i++) extraJumbleBase.forEach(([de,en,topic]) => jumbleSentences.push({de,en,topic}));
+
+    const extraWritingBase = [
+      ["I need help today.","Ich brauche heute Hilfe.","communication"],["Can you please speak slowly?","Kannst du bitte langsam sprechen?","communication"],["I am learning new words.","Ich lerne neue Wörter.","learning"],["The sentence is very easy.","Der Satz ist sehr einfach.","learning"],["We repeat the grammar.","Wir wiederholen die Grammatik.","learning"],
+      ["The apartment has two rooms.","Die Wohnung hat zwei Zimmer.","home"],["My room is very bright.","Mein Zimmer ist sehr hell.","home"],["The kitchen is next to the bathroom.","Die Küche ist neben dem Bad.","home"],["I tidy up my room.","Ich räume mein Zimmer auf.","home"],["The lamp is on the table.","Die Lampe steht auf dem Tisch.","home"],
+      ["I am travelling to Potsdam tomorrow.","Ich fahre morgen nach Potsdam.","travel"],["The train leaves at ten o'clock.","Der Zug fährt um zehn Uhr.","travel"],["I wait at the train station.","Ich warte am Bahnhof.","travel"],["We get on the bus.","Wir steigen in den Bus ein.","travel"],["Where can I buy a ticket?","Wo kann ich ein Ticket kaufen?","travel"],
+      ["I am buying vegetables today.","Ich kaufe heute Gemüse.","shopping"],["The tomatoes are very fresh.","Die Tomaten sind sehr frisch.","shopping"],["I still need bread.","Ich brauche noch Brot.","shopping"],["The supermarket closes at eight.","Der Supermarkt schließt um acht.","shopping"],["I prefer to pay cash.","Ich bezahle lieber bar.","shopping"],
+      ["I order a pizza.","Ich bestelle eine Pizza.","restaurant"],["The bill comes immediately.","Die Rechnung kommt sofort.","restaurant"],["We reserve a table.","Wir reservieren einen Tisch.","restaurant"],["The water is still.","Das Wasser ist ohne Gas.","restaurant"],["I like eating soup.","Ich esse gern Suppe.","restaurant"],
+      ["My mother calls me.","Meine Mutter ruft mich an.","family"],["My brother visits me tomorrow.","Mein Bruder besucht mich morgen.","family"],["The children play in the garden.","Die Kinder spielen im Garten.","family"],["My parents come on Sunday.","Meine Eltern kommen am Sonntag.","family"],["We celebrate birthday together.","Wir feiern zusammen Geburtstag.","family"],
+      ["I have a headache today.","Ich habe heute Kopfschmerzen.","health"],["The doctor gives me medicine.","Der Arzt gibt mir Medizin.","health"],["I must sleep a lot.","Ich muss viel schlafen.","health"],["The pharmacy opens at nine.","Die Apotheke öffnet um neun.","health"],["I feel better.","Mir geht es besser.","health"],
+      ["I work from nine to five.","Ich arbeite von neun bis fünf.","work"],["The colleague explains the problem.","Die Kollegin erklärt das Problem.","work"],["We have a meeting today.","Wir haben heute ein Meeting.","work"],["I write the report.","Ich schreibe den Bericht.","work"],["The computer does not work.","Der Computer funktioniert nicht.","work"],
+      ["On Monday I learn German.","Am Montag lerne ich Deutsch.","time"],["My course begins in May.","Mein Kurs beginnt im Mai.","time"],["The lesson lasts forty-five minutes.","Die Stunde dauert fünfundvierzig Minuten.","time"],["This evening I have time.","Heute Abend habe ich Zeit.","time"],["Tomorrow morning I go running.","Morgen früh gehe ich laufen.","time"],
+      ["It is very warm today.","Es ist heute sehr warm.","weather"],["In autumn it often rains.","Im Herbst regnet es oft.","weather"],["The wind is strong.","Der Wind ist stark.","weather"],["I take an umbrella with me.","Ich nehme einen Regenschirm mit.","weather"],["In nice weather we go outside.","Bei schönem Wetter gehen wir raus.","weather"]
+    ];
+    for (let i = 0; i < 2; i++) extraWritingBase.forEach(([en,de,topic]) => writingSentences.push({en,de,topic}));
+
+    let state = JSON.parse(localStorage.getItem("a1PracticeState") || "{}");
+    let currentSection = "jumble";
+
+    function normalize(str) {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[?!.]/g, "")
+        .replace(/ä/g, "a")
+        .replace(/ö/g, "o")
+        .replace(/ü/g, "u")
+        .replace(/ß/g, "ss")
+        .replace(/\s+/g, " ");
+    }
+
+    function tokenize(sentence) {
+      return sentence.replace(/[?!.]/g, "").split(/\s+/);
+    }
+
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor((i + 1) * Math.sin(i * 999) % (i + 1));
+        const safeJ = Math.abs(j);
+        [a[i], a[safeJ]] = [a[safeJ], a[i]];
+      }
+      if (a.join(" ") === arr.join(" ")) a.reverse();
+      return a;
+    }
+
+    function key(type, index) { return `${type}-${index}`; }
+
+    function mark(type, index, correct) {
+      const k = key(type, index);
+      state[k] = { tried: true, correct };
+      localStorage.setItem("a1PracticeState", JSON.stringify(state));
+      updateStats();
+    }
+
+    function updateStats() {
+      const values = Object.values(state);
+      const tried = values.filter(v => v.tried).length;
+      const correct = values.filter(v => v.correct).length;
+      const total = jumbleSentences.length + writingSentences.length + articleDrill.length;
+      document.getElementById("totalCount").textContent = total;
+      document.getElementById("triedCount").textContent = tried;
+      document.getElementById("correctCount").textContent = correct;
+      document.getElementById("accuracyCount").textContent = tried ? Math.round((correct / tried) * 100) + "%" : "0%";
+      document.getElementById("progressFill").style.width = Math.min(100, Math.round((tried / total) * 100)) + "%";
+    }
+
+    function populateTopics() {
+      const topics = new Set([...jumbleSentences, ...writingSentences].map(x => x.topic));
+      const select = document.getElementById("topicFilter");
+      [...topics].sort().forEach(topic => {
+        const opt = document.createElement("option");
+        opt.value = topic;
+        opt.textContent = topic;
+        select.appendChild(opt);
+      });
+    }
+
+    function passesFilter(item) {
+      const q = document.getElementById("searchInput").value.toLowerCase().trim();
+      const topic = document.getElementById("topicFilter").value;
+      const combined = `${item.de || ""} ${item.en || ""} ${item.topic || ""}`.toLowerCase();
+      return (topic === "all" || item.topic === topic) && (!q || combined.includes(q));
+    }
+
+    function renderJumble() {
+      const container = document.getElementById("jumbleContainer");
+      container.innerHTML = "";
+      jumbleSentences.forEach((item, index) => {
+        if (!passesFilter(item)) return;
+        const id = `jumble-${index}`;
+        const words = shuffleArray(tokenize(item.de).map((word, i) => ({ word, id: `${id}-w${i}` })));
+        const div = document.createElement("div");
+        div.className = "exercise";
+        div.innerHTML = `
+          <div class="exercise-head">
+            <div><span class="exercise-number">${index + 1}.</span> Arrange the words.</div>
+            <span class="tag">${item.topic}</span>
+          </div>
+          <p class="translation">English meaning: ${item.en}</p>
+          <div class="answer-box" id="${id}-answer"></div>
+          <div class="word-bank" id="${id}-bank"></div>
+          <div class="controls">
+            <button class="primary small" onclick="checkJumble(${index})">Check</button>
+            <button class="small" onclick="clearJumble(${index})">Clear</button>
+            <button class="small" onclick="toggleAnswer('${id}-hidden')">Show / Hide Answer</button>
+            <span class="feedback" id="${id}-feedback"></span>
+          </div>
+          <div class="hidden-answer" id="${id}-hidden">${item.de}</div>
+        `;
+        container.appendChild(div);
+        const bank = document.getElementById(`${id}-bank`);
+        words.forEach(obj => {
+          const chip = document.createElement("span");
+          chip.className = "word";
+          chip.textContent = obj.word;
+          chip.dataset.word = obj.word;
+          chip.onclick = () => chooseWord(index, chip);
+          bank.appendChild(chip);
+        });
+      });
+    }
+
+    function chooseWord(index, chip) {
+      const id = `jumble-${index}`;
+      const answer = document.getElementById(`${id}-answer`);
+      chip.classList.add("used");
+      const chosen = document.createElement("span");
+      chosen.className = "word chosen";
+      chosen.textContent = chip.dataset.word;
+      chosen.dataset.sourceText = chip.dataset.word;
+      chosen.onclick = () => {
+        chip.classList.remove("used");
+        chosen.remove();
+      };
+      answer.appendChild(chosen);
+    }
+
+    function getChosenSentence(index) {
+      const id = `jumble-${index}`;
+      return [...document.querySelectorAll(`#${id}-answer .chosen`)].map(x => x.textContent).join(" ");
+    }
+
+    function checkJumble(index) {
+      const item = jumbleSentences[index];
+      const chosen = getChosenSentence(index);
+      const ok = normalize(chosen) === normalize(item.de);
+      const fb = document.getElementById(`jumble-${index}-feedback`);
+      fb.textContent = ok ? "Correct" : "Not correct yet";
+      fb.className = "feedback " + (ok ? "ok" : "no");
+      mark("jumble", index, ok);
+    }
+
+    function clearJumble(index) {
+      const id = `jumble-${index}`;
+      document.getElementById(`${id}-answer`).innerHTML = "";
+      document.querySelectorAll(`#${id}-bank .word`).forEach(w => w.classList.remove("used"));
+      document.getElementById(`${id}-feedback`).textContent = "";
+    }
+
+    function renderWriting() {
+      const container = document.getElementById("writingContainer");
+      container.innerHTML = "";
+      writingSentences.forEach((item, index) => {
+        if (!passesFilter(item)) return;
+        const id = `write-${index}`;
+        const div = document.createElement("div");
+        div.className = "exercise";
+        div.innerHTML = `
+          <div class="exercise-head">
+            <div><span class="exercise-number">${index + 1}.</span> Translate into German.</div>
+            <span class="tag">${item.topic}</span>
+          </div>
+          <p class="translation"><strong>English:</strong> ${item.en}</p>
+          <input class="writing-input" id="${id}-input" placeholder="Type German sentence here..." />
+          <div class="controls">
+            <button class="primary small" onclick="checkWriting(${index})">Check</button>
+            <button class="small" onclick="document.getElementById('${id}-input').value=''">Clear</button>
+            <button class="small" onclick="toggleAnswer('${id}-hidden')">Show / Hide Answer</button>
+            <span class="feedback" id="${id}-feedback"></span>
+          </div>
+          <div class="hidden-answer" id="${id}-hidden">${item.de}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function checkWriting(index) {
+      const item = writingSentences[index];
+      const value = document.getElementById(`write-${index}-input`).value;
+      const ok = normalize(value) === normalize(item.de);
+      const fb = document.getElementById(`write-${index}-feedback`);
+      fb.textContent = ok ? "Correct" : "Not correct yet";
+      fb.className = "feedback " + (ok ? "ok" : "no");
+      mark("writing", index, ok);
+    }
+
+    function renderArticle() {
+      const container = document.getElementById("articleContainer");
+      container.innerHTML = "";
+      articleDrill.forEach((item, index) => {
+        const id = `article-${index}`;
+        const div = document.createElement("div");
+        div.className = "exercise";
+        div.innerHTML = `
+          <div class="exercise-head">
+            <div><span class="exercise-number">${index + 1}.</span> Choose article for: <strong>${item.noun}</strong></div>
+            <span class="tag">article</span>
+          </div>
+          <div class="controls">
+            <button class="small" onclick="checkArticle(${index}, 'der')">der</button>
+            <button class="small" onclick="checkArticle(${index}, 'die')">die</button>
+            <button class="small" onclick="checkArticle(${index}, 'das')">das</button>
+            <button class="small" onclick="toggleAnswer('${id}-hidden')">Show / Hide Answer</button>
+            <span class="feedback" id="${id}-feedback"></span>
+          </div>
+          <div class="hidden-answer" id="${id}-hidden">${item.article} ${item.noun}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function checkArticle(index, selected) {
+      const ok = selected === articleDrill[index].article;
+      const fb = document.getElementById(`article-${index}-feedback`);
+      fb.textContent = ok ? "Correct" : "Not correct";
+      fb.className = "feedback " + (ok ? "ok" : "no");
+      mark("article", index, ok);
+    }
+
+    function toggleAnswer(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === "block" ? "none" : "block";
+    }
+
+    function showSection(name) {
+      currentSection = name;
+      document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+      document.getElementById(name).classList.add("active");
+      document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("primary"));
+      const labels = { jumble: 0, writing: 1, article: 2 };
+      document.querySelectorAll(".tabs button")[labels[name]].classList.add("primary");
+      renderCurrentSection();
+    }
+
+    function renderCurrentSection() {
+      if (currentSection === "jumble") renderJumble();
+      if (currentSection === "writing") renderWriting();
+      if (currentSection === "article") renderArticle();
+      updateStats();
+    }
+
+    function resetAll() {
+      if (!confirm("Reset all saved progress?")) return;
+      state = {};
+      localStorage.removeItem("a1PracticeState");
+      renderCurrentSection();
+      updateStats();
+    }
+
+    populateTopics();
+    renderJumble();
+    renderWriting();
+    renderArticle();
+    updateStats();
+  </script>
+</body>
+</html>
