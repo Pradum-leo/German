@@ -181,6 +181,30 @@
       box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
     }
 
+    .exercise.correct {
+      background: #ecfdf5;
+      border-color: #22c55e;
+      box-shadow: 0 8px 22px rgba(34, 197, 94, 0.16);
+    }
+
+    .exercise.incorrect {
+      background: #fef2f2;
+      border-color: #ef4444;
+      box-shadow: 0 8px 22px rgba(239, 68, 68, 0.14);
+    }
+
+    .exercise.correct .answer-box,
+    .exercise.correct .word-bank {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+
+    .exercise.incorrect .answer-box,
+    .exercise.incorrect .word-bank {
+      background: #fff1f2;
+      border-color: #fca5a5;
+    }
+
     .exercise-head {
       display: flex;
       justify-content: space-between;
@@ -1076,6 +1100,7 @@
         const words = shuffleArray(tokenize(item.de).map((word, i) => ({ word, id: `${id}-w${i}` })));
         const div = document.createElement("div");
         div.className = "exercise";
+        div.id = `${id}-card`;
         div.innerHTML = `
           <div class="exercise-head">
             <div><span class="exercise-number">${index + 1}.</span> Arrange the words.</div>
@@ -1116,8 +1141,11 @@
       chosen.onclick = () => {
         chip.classList.remove("used");
         chosen.remove();
+        resetExerciseVisual(`${id}-card`);
+        document.getElementById(`${id}-feedback`).textContent = "";
       };
       answer.appendChild(chosen);
+      autoCheckJumbleIfComplete(index);
     }
 
     function getChosenSentence(index) {
@@ -1126,13 +1154,26 @@
     }
 
     function checkJumble(index) {
+      applyJumbleResult(index, true);
+    }
+
+    function autoCheckJumbleIfComplete(index) {
+      const targetLength = tokenize(jumbleSentences[index].de).length;
+      const chosenLength = document.querySelectorAll(`#jumble-${index}-answer .chosen`).length;
+      if (chosenLength === targetLength) {
+        applyJumbleResult(index, true);
+      }
+    }
+
+    function applyJumbleResult(index, saveProgress) {
       const item = jumbleSentences[index];
       const chosen = getChosenSentence(index);
       const ok = normalize(chosen) === normalize(item.de);
       const fb = document.getElementById(`jumble-${index}-feedback`);
-      fb.textContent = ok ? "Correct" : "Not correct yet";
+      fb.textContent = ok ? "Correct" : "Incorrect";
       fb.className = "feedback " + (ok ? "ok" : "no");
-      mark("jumble", index, ok);
+      setExerciseVisual(`jumble-${index}-card`, ok);
+      if (saveProgress) mark("jumble", index, ok);
     }
 
     function clearJumble(index) {
@@ -1140,6 +1181,7 @@
       document.getElementById(`${id}-answer`).innerHTML = "";
       document.querySelectorAll(`#${id}-bank .word`).forEach(w => w.classList.remove("used"));
       document.getElementById(`${id}-feedback`).textContent = "";
+      resetExerciseVisual(`${id}-card`);
     }
 
     function renderWriting() {
@@ -1150,13 +1192,14 @@
         const id = `write-${index}`;
         const div = document.createElement("div");
         div.className = "exercise";
+        div.id = `${id}-card`;
         div.innerHTML = `
           <div class="exercise-head">
             <div><span class="exercise-number">${index + 1}.</span> Translate into German.</div>
             <span class="tag">${item.topic}</span>
           </div>
           <p class="translation"><strong>English:</strong> ${item.en}</p>
-          <input class="writing-input" id="${id}-input" placeholder="Type German sentence here..." />
+          <input class="writing-input" id="${id}-input" placeholder="Type German sentence here..." oninput="autoCheckWritingIfComplete(${index})" />
           <div class="controls">
             <button class="primary small" onclick="checkWriting(${index})">Check</button>
             <button class="small" onclick="document.getElementById('${id}-input').value=''">Clear</button>
@@ -1170,13 +1213,41 @@
     }
 
     function checkWriting(index) {
+      applyWritingResult(index, true);
+    }
+
+    function autoCheckWritingIfComplete(index) {
+      const item = writingSentences[index];
+      const value = document.getElementById(`write-${index}-input`).value;
+      const normalizedValue = normalize(value);
+      const expectedWordCount = normalize(item.de).split(" ").filter(Boolean).length;
+      const typedWordCount = normalizedValue.split(" ").filter(Boolean).length;
+
+      if (!normalizedValue) {
+        resetExerciseVisual(`write-${index}-card`);
+        document.getElementById(`write-${index}-feedback`).textContent = "";
+        return;
+      }
+
+      // Auto-check only when the learner has typed at least as many words as the expected answer.
+      // This avoids turning the card red while the learner is still typing the first few words.
+      if (typedWordCount >= expectedWordCount) {
+        applyWritingResult(index, true);
+      } else {
+        resetExerciseVisual(`write-${index}-card`);
+        document.getElementById(`write-${index}-feedback`).textContent = "";
+      }
+    }
+
+    function applyWritingResult(index, saveProgress) {
       const item = writingSentences[index];
       const value = document.getElementById(`write-${index}-input`).value;
       const ok = normalize(value) === normalize(item.de);
       const fb = document.getElementById(`write-${index}-feedback`);
-      fb.textContent = ok ? "Correct" : "Not correct yet";
+      fb.textContent = ok ? "Correct" : "Incorrect";
       fb.className = "feedback " + (ok ? "ok" : "no");
-      mark("writing", index, ok);
+      setExerciseVisual(`write-${index}-card`, ok);
+      if (saveProgress) mark("writing", index, ok);
     }
 
     function renderArticle() {
@@ -1186,6 +1257,7 @@
         const id = `article-${index}`;
         const div = document.createElement("div");
         div.className = "exercise";
+        div.id = `${id}-card`;
         div.innerHTML = `
           <div class="exercise-head">
             <div><span class="exercise-number">${index + 1}.</span> Choose article for: <strong>${item.noun}</strong></div>
@@ -1210,6 +1282,19 @@
       fb.textContent = ok ? "Correct" : "Not correct";
       fb.className = "feedback " + (ok ? "ok" : "no");
       mark("article", index, ok);
+    }
+
+    function setExerciseVisual(cardId, isCorrect) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      card.classList.remove("correct", "incorrect");
+      card.classList.add(isCorrect ? "correct" : "incorrect");
+    }
+
+    function resetExerciseVisual(cardId) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      card.classList.remove("correct", "incorrect");
     }
 
     function toggleAnswer(id) {
